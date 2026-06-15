@@ -72,5 +72,30 @@ class Asset(BaseModel):
         nullable=True
     )
 
+    category = db.relationship(
+        "Category",
+        backref="assets"
+    )
+
+    vendor = db.relationship(
+        "Vendor",
+        backref="assets"
+    )
+
+    location = db.relationship(
+        "Location",
+        backref="assets"
+    )
+
+    employee = db.relationship(
+        "Employee",
+        backref="assets"
+    )
+    
+    is_active = db.Column(
+        db.Boolean,
+        default=True
+    )
+
     def __repr__(self):
         return f"<Asset {self.asset_code}>"
