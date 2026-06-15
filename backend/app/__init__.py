@@ -21,5 +21,9 @@ def create_app():
     app.register_blueprint(health_bp)
 
     from app.models.user_model import User
+    from app.models.category_model import Category
+    from app.models.vendor_model import Vendor
+    from app.models.location_model import Location
+    from app.models.employee_model import Employee
 
     return app
