@@ -21,12 +21,14 @@ def create_app():
     from app.api.category_routes import category_bp
     from app.api.vendor_routes import vendor_bp
     from app.api.location_routes import location_bp
+    from app.api.employee_routes import employee_bp
 
 
     app.register_blueprint(health_bp)
     app.register_blueprint(category_bp, url_prefix="/api")
     app.register_blueprint(vendor_bp, url_prefix="/api")
     app.register_blueprint(location_bp, url_prefix="/api")
+    app.register_blueprint(employee_bp, url_prefix="/api")
 
     from app.models.user_model import User
     from app.models.category_model import Category
