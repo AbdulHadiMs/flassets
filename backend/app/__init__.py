@@ -18,7 +18,13 @@ def create_app():
     jwt.init_app(app)
 
     from app.api.health_routes import health_bp
+    from app.api.category_routes import category_bp
+    from app.api.vendor_routes import vendor_bp
+
+
     app.register_blueprint(health_bp)
+    app.register_blueprint(category_bp, url_prefix="/api")
+    app.register_blueprint(vendor_bp, url_prefix="/api")
 
     from app.models.user_model import User
     from app.models.category_model import Category
