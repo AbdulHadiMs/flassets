@@ -21,6 +21,12 @@ class User(BaseModel):
         nullable=False
     )
 
+    role = db.Column(
+    db.String(50),
+    nullable=False,
+    default="Employee"
+    )
+
     is_active = db.Column(
         db.Boolean,
         default=True
