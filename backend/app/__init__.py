@@ -25,5 +25,6 @@ def create_app():
     from app.models.vendor_model import Vendor
     from app.models.location_model import Location
     from app.models.employee_model import Employee
+    from app.models.asset_model import Asset
 
     return app
