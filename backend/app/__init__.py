@@ -23,6 +23,7 @@ def create_app():
     from app.api.location_routes import location_bp
     from app.api.employee_routes import employee_bp
     from app.api.asset_routes import asset_bp
+    from app.api.auth_routes import auth_bp
 
 
     app.register_blueprint(health_bp)
@@ -31,6 +32,7 @@ def create_app():
     app.register_blueprint(location_bp, url_prefix="/api")
     app.register_blueprint(employee_bp, url_prefix="/api")
     app.register_blueprint(asset_bp, url_prefix="/api")
+    app.register_blueprint(auth_bp, url_prefix="/api")
 
     from app.models.user_model import User
     from app.models.category_model import Category
