@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required
 
 from app.services.location_service import LocationService
 
@@ -37,6 +38,7 @@ def create_location():
 
 
 @location_bp.route("/locations", methods=["GET"])
+@jwt_required()
 def get_locations():
     try:
         locations = LocationService.get_all_locations()

@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required
 
 from app.services.vendor_service import VendorService
 
@@ -45,6 +46,7 @@ def create_vendor():
 
 
 @vendor_bp.route("/vendors", methods=["GET"])
+@jwt_required()
 def get_vendors():
     try:
         vendors = VendorService.get_all_vendors()

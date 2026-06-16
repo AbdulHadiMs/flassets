@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from datetime import datetime
+from flask_jwt_extended import jwt_required
 
 from app.services.asset_service import AssetService
 
@@ -70,6 +71,7 @@ def create_asset():
         }), 500
     
 @asset_bp.route("/assets", methods=["GET"])
+@jwt_required()
 def get_assets():
     try:
         assets = AssetService.get_all_assets()

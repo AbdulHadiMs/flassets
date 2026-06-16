@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required
 
 from app.services.category_service import CategoryService
 
@@ -57,6 +58,7 @@ def create_category():
     "/categories",
     methods=["GET"]
 )
+@jwt_required()
 def get_categories():
     try:
         categories = CategoryService.get_all_categories()

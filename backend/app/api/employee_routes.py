@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required
 
 from app.services.employee_service import EmployeeService
 
@@ -47,6 +48,7 @@ def create_employee():
 
 
 @employee_bp.route("/employees", methods=["GET"])
+@jwt_required()
 def get_employees():
     try:
         employees = EmployeeService.get_all_employees()
