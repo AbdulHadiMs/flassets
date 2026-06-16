@@ -92,10 +92,17 @@ class Asset(BaseModel):
         backref="assets"
     )
     
+    allocations = db.relationship(
+        "AssetAllocation",
+        backref="asset",
+        lazy=True
+    )
+    
     is_active = db.Column(
         db.Boolean,
         default=True
     )
+    
 
     def __repr__(self):
         return f"<Asset {self.asset_code}>"

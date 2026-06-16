@@ -37,6 +37,12 @@ class Employee(BaseModel):
         nullable=True
     )
 
+    allocations = db.relationship(
+        "AssetAllocation",
+        backref="employee",
+        lazy=True
+    )
+
     is_active = db.Column(
         db.Boolean,
         default=True
