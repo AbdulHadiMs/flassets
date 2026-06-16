@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required
+from app.utils.auth_decorators import admin_required
 
 from app.services.location_service import LocationService
 
@@ -11,6 +12,7 @@ location_bp = Blueprint(
 
 
 @location_bp.route("/locations", methods=["POST"])
+@admin_required
 def create_location():
     try:
         data = request.get_json()
@@ -86,6 +88,7 @@ def get_location(location_id):
 
 
 @location_bp.route("/locations/<int:location_id>", methods=["PUT"])
+@admin_required
 def update_location(location_id):
     try:
         data = request.get_json()
@@ -114,6 +117,7 @@ def update_location(location_id):
 
 
 @location_bp.route("/locations/<int:location_id>", methods=["DELETE"])
+@admin_required
 def deactivate_location(location_id):
     try:
         LocationService.deactivate_location(

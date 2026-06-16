@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required
+from app.utils.auth_decorators import admin_required
 
 from app.services.vendor_service import VendorService
 
@@ -11,6 +12,7 @@ vendor_bp = Blueprint(
 
 
 @vendor_bp.route("/vendors", methods=["POST"])
+@admin_required
 def create_vendor():
     try:
         data = request.get_json()
@@ -106,6 +108,7 @@ def get_vendor(vendor_id):
 
 
 @vendor_bp.route("/vendors/<int:vendor_id>", methods=["PUT"])
+@admin_required
 def update_vendor(vendor_id):
     try:
         data = request.get_json()
@@ -142,6 +145,7 @@ def update_vendor(vendor_id):
 
 
 @vendor_bp.route("/vendors/<int:vendor_id>", methods=["DELETE"])
+@admin_required
 def deactivate_vendor(vendor_id):
     try:
         VendorService.deactivate_vendor(

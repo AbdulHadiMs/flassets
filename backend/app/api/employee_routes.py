@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required
+from app.utils.auth_decorators import admin_required
 
 from app.services.employee_service import EmployeeService
 
@@ -11,6 +12,7 @@ employee_bp = Blueprint(
 
 
 @employee_bp.route("/employees", methods=["POST"])
+@admin_required
 def create_employee():
     try:
         data = request.get_json()
@@ -110,6 +112,7 @@ def get_employee(employee_id):
 
 
 @employee_bp.route("/employees/<int:employee_id>", methods=["PUT"])
+@admin_required
 def update_employee(employee_id):
     try:
         data = request.get_json()
@@ -148,6 +151,7 @@ def update_employee(employee_id):
 
 
 @employee_bp.route("/employees/<int:employee_id>", methods=["DELETE"])
+@admin_required
 def deactivate_employee(employee_id):
     try:
         EmployeeService.deactivate_employee(

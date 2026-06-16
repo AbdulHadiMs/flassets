@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required
+from app.utils.auth_decorators import admin_required
 
 from app.services.category_service import CategoryService
 
@@ -14,6 +15,7 @@ category_bp = Blueprint(
     "/categories",
     methods=["POST"]
 )
+@admin_required
 def create_category():
     try:
         data = request.get_json()
@@ -116,6 +118,7 @@ def get_category(category_id):
     "/categories/<int:category_id>",
     methods=["PUT"]
 )
+@admin_required
 def update_category(category_id):
     try:
         data = request.get_json()
@@ -153,6 +156,7 @@ def update_category(category_id):
     "/categories/<int:category_id>",
     methods=["DELETE"]
 )
+@admin_required
 def deactivate_category(category_id):
     try:
         CategoryService.deactivate_category(

@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from datetime import datetime
 from flask_jwt_extended import jwt_required
+from app.utils.auth_decorators import admin_required
 
 from app.services.asset_service import AssetService
 
@@ -22,6 +23,7 @@ def parse_date(date_string):
 
 
 @asset_bp.route("/assets", methods=["POST"])
+@admin_required
 def create_asset():
     try:
         data = request.get_json()
@@ -132,6 +134,7 @@ def get_asset(asset_id):
 
 
 @asset_bp.route("/assets/<int:asset_id>", methods=["PUT"])
+@admin_required
 def update_asset(asset_id):
     try:
         data = request.get_json()
@@ -177,6 +180,7 @@ def update_asset(asset_id):
 
 
 @asset_bp.route("/assets/<int:asset_id>", methods=["DELETE"])
+@admin_required
 def delete_asset(asset_id):
     try:
         AssetService.delete_asset(asset_id)
