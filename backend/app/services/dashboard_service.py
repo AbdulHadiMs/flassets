@@ -61,3 +61,43 @@ class DashboardService:
             "total_locations": total_locations,
             "active_allocations": active_allocations
         }
+    
+
+    @staticmethod
+    def get_recent_assets():
+        assets = Asset.query.filter_by(
+            is_active=True
+        ).order_by(
+            Asset.created_at.desc()
+        ).limit(5).all()
+
+        return [
+            {
+                "id": asset.id,
+                "asset_code": asset.asset_code,
+                "asset_name": asset.asset_name,
+                "status": asset.status
+            }
+            for asset in assets
+        ]
+    
+    @staticmethod
+    def get_recent_allocations():
+        allocations = AssetAllocation.query.order_by(
+            AssetAllocation.created_at.desc()
+        ).limit(5).all()
+
+        return [
+            {
+                "id": allocation.id,
+                "asset_code": allocation.asset.asset_code
+                if allocation.asset else None,
+                "asset_name": allocation.asset.asset_name
+                if allocation.asset else None,
+                "employee_name": allocation.employee.full_name
+                if allocation.employee else None,
+                "allocation_date": str(allocation.allocation_date),
+                "status": allocation.status
+            }
+            for allocation in allocations
+        ]

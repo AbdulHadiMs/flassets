@@ -4,9 +4,17 @@ import api from "../../api/axios";
 
 function Dashboard() {
   const [stats, setStats] = useState(null);
+  const [recentAssets, setRecentAssets] =
+    useState([]);
+
+  const [recentAllocations,
+    setRecentAllocations
+  ] = useState([]);
 
   useEffect(() => {
     fetchDashboardStats();
+    fetchRecentAssets();
+    fetchRecentAllocations();
   }, []);
 
   const fetchDashboardStats = async () => {
@@ -20,6 +28,37 @@ function Dashboard() {
       console.error(error);
     }
   };
+
+  const fetchRecentAssets = async () => {
+    try {
+      const response = await api.get(
+        "/dashboard/recent-assets"
+      );
+
+      setRecentAssets(
+        response.data.data
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+  const fetchRecentAllocations =
+    async () => {
+      try {
+        const response =
+          await api.get(
+            "/dashboard/recent-allocations"
+          );
+
+        setRecentAllocations(
+          response.data.data
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
   return (
     <MainLayout>
@@ -76,6 +115,112 @@ function Dashboard() {
 
           </div>
         )}
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+
+          {/* Recent Assets */}
+          <div className="bg-white rounded-lg shadow p-5">
+
+            <h2 className="text-xl font-semibold mb-4">
+              Recent Assets
+            </h2>
+
+            <table className="w-full">
+
+              <thead>
+                <tr>
+                  <th className="text-left">
+                    Code
+                  </th>
+
+                  <th className="text-left">
+                    Name
+                  </th>
+
+                  <th className="text-left">
+                    Status
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {recentAssets.map(
+                  (asset) => (
+                    <tr key={asset.id}>
+                      <td>
+                        {asset.asset_code}
+                      </td>
+
+                      <td>
+                        {asset.asset_name}
+                      </td>
+
+                      <td>
+                        {asset.status}
+                      </td>
+                    </tr>
+                  )
+                )}
+              </tbody>
+
+            </table>
+
+          </div>
+
+          {/* Recent Allocations */}
+          <div className="bg-white rounded-lg shadow p-5">
+
+            <h2 className="text-xl font-semibold mb-4">
+              Recent Allocations
+            </h2>
+
+            <table className="w-full">
+
+              <thead>
+                <tr>
+                  <th className="text-left">
+                    Asset
+                  </th>
+
+                  <th className="text-left">
+                    Employee
+                  </th>
+
+                  <th className="text-left">
+                    Status
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                {recentAllocations.map(
+                  (allocation) => (
+                    <tr key={allocation.id}>
+
+                      <td>
+                        {allocation.asset_code}
+                      </td>
+
+                      <td>
+                        {allocation.employee_name}
+                      </td>
+
+                      <td>
+                        {allocation.status}
+                      </td>
+
+                    </tr>
+                  )
+                )}
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
 
       </div>
     </MainLayout>

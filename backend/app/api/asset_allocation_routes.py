@@ -80,6 +80,7 @@ def return_asset(
         }), 400
     
 
+
 @allocation_bp.route(
     "/allocations",
     methods=["GET"]
@@ -96,23 +97,32 @@ def get_allocations():
     for allocation in allocations:
         data.append({
             "id": allocation.id,
+
             "asset_id": allocation.asset_id,
+            "asset_code": allocation.asset.asset_code if allocation.asset else None,
+            "asset_name": allocation.asset.asset_name if allocation.asset else None,
+
             "employee_id": allocation.employee_id,
+            "employee_name": allocation.employee.full_name if allocation.employee else None,
+
             "status": allocation.status,
-            "allocation_date": str(
-                allocation.allocation_date
-            ),
-            "expected_return_date": str(
-                allocation.expected_return_date
-            )
+
+            "allocation_date": str(allocation.allocation_date),
+
+            "expected_return_date": str(allocation.expected_return_date)
             if allocation.expected_return_date
-            else None
+            else None,
+
+            "actual_return_date": str(allocation.actual_return_date)
+            if allocation.actual_return_date
+            else None,
         })
 
     return jsonify({
         "success": True,
         "data": data
     }), 200
+
 
 
 @allocation_bp.route(

@@ -1,11 +1,16 @@
 import { BrowserRouter, Routes, Route, Navigate }
-from "react-router-dom";
+  from "react-router-dom";
 
 import Login from "./pages/auth/Login";
 
 import Dashboard from "./pages/dashboard/Dashboard";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Assets from "./pages/assets/Assets";
+import Categories from "./pages/categories/Categories";
+import Vendors from "./pages/vendors/Vendors";
+import Locations from "./pages/locations/Locations";
+import Employees from "./pages/employees/Employees";
+import Allocations from "./pages/allocations/Allocations";
 
 function App() {
   return (
@@ -42,6 +47,52 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/categories"
+          element={
+            <ProtectedRoute>
+              <Categories />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/vendors"
+          element={
+            <ProtectedRoute>
+              <Vendors />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/locations"
+          element={
+            <ProtectedRoute>
+              <Locations />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/employees"
+          element={
+            <ProtectedRoute>
+              <Employees />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/allocations"
+          element={
+            <ProtectedRoute>
+              <Allocations />
+            </ProtectedRoute>
+          }
+        />
+
 
       </Routes>
     </BrowserRouter>

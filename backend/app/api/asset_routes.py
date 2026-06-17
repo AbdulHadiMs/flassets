@@ -87,6 +87,12 @@ def get_assets():
                     "asset_name": asset.asset_name,
                     "serial_number": asset.serial_number,
                     "status": asset.status,
+                    "category_id": asset.category_id,
+                    "vendor_id": asset.vendor_id,
+                    "location_id": asset.location_id,
+                    "employee_id": asset.employee_id,
+                    "purchase_cost": asset.purchase_cost,
+                    "invoice_number": asset.invoice_number,
 
                     "category": asset.category.name if asset.category else None,
                     "vendor": asset.vendor.name if asset.vendor else None,
@@ -104,6 +110,7 @@ def get_assets():
         }), 500
 
 @asset_bp.route("/assets/<int:asset_id>", methods=["GET"])
+@jwt_required()
 def get_asset(asset_id):
     try:
         asset = AssetService.get_asset_by_id(asset_id)
@@ -111,18 +118,22 @@ def get_asset(asset_id):
         return jsonify({
             "success": True,
             "data": {
-                "id": asset.id,
+               "id": asset.id,
                 "asset_code": asset.asset_code,
                 "asset_name": asset.asset_name,
                 "serial_number": asset.serial_number,
+                "status": asset.status,
+                "category_id": asset.category_id,
+                "vendor_id": asset.vendor_id,
+                "location_id": asset.location_id,
+                "employee_id": asset.employee_id,
                 "purchase_cost": asset.purchase_cost,
                 "invoice_number": asset.invoice_number,
-                "status": asset.status,
 
                 "category": asset.category.name if asset.category else None,
                 "vendor": asset.vendor.name if asset.vendor else None,
                 "location": asset.location.name if asset.location else None,
-                "employee": asset.employee.full_name if asset.employee else None
+                "employee": asset.employee.full_name if asset.employee else None 
             }
         }), 200
 
