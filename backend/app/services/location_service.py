@@ -7,7 +7,8 @@ class LocationService:
     @staticmethod
     def create_location(name, description=None):
         existing_location = Location.query.filter_by(
-            name=name
+            name=name,
+            is_active=True
         ).first()
 
         if existing_location:

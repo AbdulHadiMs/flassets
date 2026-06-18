@@ -14,7 +14,8 @@ class EmployeeService:
         designation=None
     ):
         existing_code = Employee.query.filter_by(
-            employee_code=employee_code
+            employee_code=employee_code,
+            is_active=True
         ).first()
 
         if existing_code:
@@ -24,7 +25,8 @@ class EmployeeService:
 
         if email:
             existing_email = Employee.query.filter_by(
-                email=email
+                email=email,
+                is_active=True
             ).first()
 
             if existing_email:

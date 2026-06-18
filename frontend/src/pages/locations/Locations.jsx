@@ -210,8 +210,8 @@ function Locations() {
 
           </thead>
 
-          <tbody>
 
+          <tbody>
             {filteredLocations.length === 0 ? (
               <tr>
                 <td
@@ -223,52 +223,38 @@ function Locations() {
               </tr>
             ) : (
               filteredLocations.map((location) => (
-                (location) => (
-                  <tr
-                    key={location.id}
-                    className="border-t"
-                  >
-                    <td className="p-4">
-                      {location.name}
-                    </td>
+                <tr
+                  key={location.id}
+                  className="border-t"
+                >
+                  <td className="p-4">
+                    {location.name}
+                  </td>
 
-                    <td className="p-4">
-                      {location.description ||
-                        "-"}
-                    </td>
+                  <td className="p-4">
+                    {location.description || "-"}
+                  </td>
 
-                    <td className="p-4">
+                  <td className="p-4">
+                    <button
+                      onClick={() => handleEditClick(location)}
+                      className="text-blue-600 hover:underline mr-3"
+                    >
+                      Edit
+                    </button>
 
-                      <button
-                        onClick={() =>
-                          handleEditClick(
-                            location
-                          )
-                        }
-                        className="text-blue-600 hover:underline mr-3"
-                      >
-                        Edit
-                      </button>
-
-                      <button
-                        onClick={() =>
-                          handleDeleteLocation(
-                            location.id
-                          )
-                        }
-                        className="text-red-600 hover:underline"
-                      >
-                        Delete
-                      </button>
-
-                    </td>
-
-                  </tr>
-                )
+                    <button
+                      onClick={() => handleDeleteLocation(location.id)}
+                      className="text-red-600 hover:underline"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
               ))
             )}
-
           </tbody>
+
 
         </table>
 

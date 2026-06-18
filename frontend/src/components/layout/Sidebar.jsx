@@ -32,6 +32,10 @@ function Sidebar() {
       name: "Locations",
       path: "/locations",
     },
+    {
+      name: "Reports",
+      path: "/reports"
+    }
   ];
 
   return (
@@ -47,11 +51,10 @@ function Sidebar() {
           <Link
             key={item.path}
             to={item.path}
-            className={`block p-3 rounded mb-2 ${
-              location.pathname === item.path
+            className={`block p-3 rounded mb-2 ${location.pathname === item.path
                 ? "bg-blue-600 text-white"
                 : "hover:bg-gray-100"
-            }`}
+              }`}
           >
             {item.name}
           </Link>

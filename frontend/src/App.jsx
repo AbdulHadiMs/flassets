@@ -11,6 +11,7 @@ import Vendors from "./pages/vendors/Vendors";
 import Locations from "./pages/locations/Locations";
 import Employees from "./pages/employees/Employees";
 import Allocations from "./pages/allocations/Allocations";
+import Reports from "./pages/reports/Reports";
 
 function App() {
   return (
@@ -89,6 +90,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Allocations />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/reports"
+          element={
+            <ProtectedRoute>
+              <Reports />
             </ProtectedRoute>
           }
         />

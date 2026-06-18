@@ -293,7 +293,6 @@ function Assets() {
             onChange={(e) =>
               setSearch(e.target.value)
             }
-            className="w-64"
           />
 
           <Button
@@ -489,6 +488,9 @@ function Assets() {
             ))}
           </Select>
 
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Serial Number
+          </label>
           <Input
             type="text"
             name="serial_number"
@@ -497,7 +499,10 @@ function Assets() {
             onChange={handleChange}
             className="mb-3"
           />
-
+          
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Price
+          </label>
           <Input
             type="number"
             name="purchase_cost"

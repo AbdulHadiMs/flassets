@@ -12,7 +12,8 @@ class CategoryService:
         """
 
         existing_category = Category.query.filter_by(
-            name=name
+            name=name,
+            is_active=True
         ).first()
 
         if existing_category:

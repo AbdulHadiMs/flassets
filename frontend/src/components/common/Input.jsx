@@ -7,8 +7,8 @@ function Input({
       className={`
         border
         rounded
-        w-full
         p-2
+        w-64
         ${className}
       `}
       {...props}

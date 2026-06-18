@@ -26,7 +26,8 @@ class AssetService:
     ):
 
         existing_asset = Asset.query.filter_by(
-            asset_code=asset_code
+            asset_code=asset_code,
+            is_active=True
         ).first()
 
         if existing_asset:
@@ -36,7 +37,8 @@ class AssetService:
 
         if serial_number:
             existing_serial = Asset.query.filter_by(
-                serial_number=serial_number
+                serial_number=serial_number,
+                is_active=True
             ).first()
 
             if existing_serial:

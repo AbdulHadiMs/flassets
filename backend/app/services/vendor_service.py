@@ -13,7 +13,8 @@ class VendorService:
         address=None
     ):
         existing_vendor = Vendor.query.filter_by(
-            name=name
+            name=name,
+            is_active=True
         ).first()
 
         if existing_vendor:
