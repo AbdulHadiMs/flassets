@@ -1,20 +1,19 @@
-# React / Vite
+# Python
+backend/venv/
+backend/__pycache__/
+**/__pycache__/
+*.pyc
+
+# Flask SQLite database
+backend/instance/
+
+# Environment files
+.env
+*.env
+
+# Frontend
 frontend/node_modules/
 frontend/dist/
-frontend/.vite/
-
-# Python / Flask
-backend/venv/
-backend/.venv/
-backend/__pycache__/
-backend/**/*.pyc
-backend/.pytest_cache/
-
-# Environment variables
-.env
-.env.local
-backend/.env
-frontend/.env
 
 # VS Code
 .vscode/
@@ -22,10 +21,3 @@ frontend/.env
 # OS files
 .DS_Store
 Thumbs.db
-
-# Logs
-*.log
-
-# Build files
-build/
-dist/
