@@ -36,7 +36,7 @@ function Reports() {
         await api.get(
           "/reports/allocations"
         );
-        
+
 
       setStatusReport(
         statusResponse.data.data
@@ -58,14 +58,169 @@ function Reports() {
       console.error(error);
     }
   };
-  
+
+  const downloadAssetStatusReport = async () => {
+    try {
+      const response = await api.get(
+        "/reports/export/assets/status",
+        {
+          responseType: "blob",
+        }
+      );
+
+      const url = window.URL.createObjectURL(
+        new Blob([response.data])
+      );
+
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.setAttribute(
+        "download",
+        "asset_status_report.xlsx"
+      );
+
+      document.body.appendChild(link);
+
+      link.click();
+
+      link.remove();
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const downloadAssetCategoryReport = async () => {
+    try {
+
+      const response = await api.get(
+        "/reports/export/assets/category",
+        {
+          responseType: "blob",
+        }
+      );
+
+      const url = window.URL.createObjectURL(
+        new Blob([response.data])
+      );
+
+      const link = document.createElement("a");
+
+      link.href = url;
+
+      link.setAttribute(
+        "download",
+        "asset_category_report.xlsx"
+      );
+
+      document.body.appendChild(link);
+
+      link.click();
+
+      link.remove();
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const downloadEmployeeAssetReport = async () => {
+    try {
+
+      const response = await api.get(
+        "/reports/export/employees/assets",
+        {
+          responseType: "blob",
+        }
+      );
+
+      const url = window.URL.createObjectURL(
+        new Blob([response.data])
+      );
+
+      const link = document.createElement("a");
+
+      link.href = url;
+
+      link.setAttribute(
+        "download",
+        "employee_asset_report.xlsx"
+      );
+
+      document.body.appendChild(link);
+
+      link.click();
+
+      link.remove();
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const downloadAllAssetsReport = async () => {
+    try {
+      const response = await api.get(
+        "/reports/export/assets/all",
+        {
+          responseType: "blob",
+        }
+      );
+
+      const url = window.URL.createObjectURL(
+        new Blob([response.data])
+      );
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute(
+        "download",
+        "all_assets_report.xlsx"
+      );
+
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   return (
     <MainLayout>
 
-      <h1 className="text-3xl font-bold mb-6">
-        Reports
-      </h1>
+      <div className="flex gap-3">
+
+        <button
+          onClick={downloadAssetStatusReport}
+          className="bg-green-600 text-white px-4 py-2 rounded"
+        >
+          Export Asset Status
+        </button>
+
+        <button
+          onClick={downloadAssetCategoryReport}
+          className="bg-blue-600 text-white px-4 py-2 rounded"
+        >
+          Export Category Report
+        </button>
+
+        <button
+          onClick={downloadEmployeeAssetReport}
+          className="bg-purple-600 text-white px-4 py-2 rounded"
+        >
+          Export Employee Report
+        </button>
+        <button
+          onClick={downloadAllAssetsReport}
+          className="bg-green-700 text-white px-4 py-2 rounded"
+        >
+          Export All Assets
+        </button>
+
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 

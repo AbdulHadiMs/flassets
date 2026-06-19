@@ -196,3 +196,25 @@ class AssetService:
 
         asset.is_active = False
         db.session.commit()
+
+    @staticmethod
+    def get_asset_details(asset_id):
+
+        asset = Asset.query.get(asset_id)
+
+        if not asset:
+            raise ValueError("Asset not found")
+
+        return asset
+    
+    
+    @staticmethod
+    def get_asset_history(asset_id):
+
+        from app.models.asset_allocation_model import (
+            AssetAllocation
+        )
+
+        return AssetAllocation.query.filter_by(
+            asset_id=asset_id
+        ).all()

@@ -206,7 +206,103 @@ def delete_asset(asset_id):
             "success": False,
             "message": str(e)
         }), 404
+    
 
+@asset_bp.route(
+    "/assets/<int:asset_id>/details",
+    methods=["GET"]
+)
+@jwt_required()
+def get_asset_details(asset_id):
+
+    try:
+
+        asset = (
+            AssetService
+            .get_asset_details(asset_id)
+        )
+
+        return jsonify({
+            "success": True,
+            "data": {
+                "id": asset.id,
+                "asset_code": asset.asset_code,
+                "asset_name": asset.asset_name,
+                "serial_number": asset.serial_number,
+                "status": asset.status,
+
+                "category_id": asset.category_id,
+                "vendor_id": asset.vendor_id,
+                "location_id": asset.location_id,
+                "employee_id": asset.employee_id,
+
+                "purchase_cost": asset.purchase_cost,
+                "invoice_number": asset.invoice_number,
+
+                "category": asset.category.name if asset.category else None,
+                "vendor": asset.vendor.name if asset.vendor else None,
+                "location": asset.location.name if asset.location else None,
+                "employee": asset.employee.full_name if asset.employee else None
+            }
+        }), 200
+
+    except ValueError as e:
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 404
+    
+
+@asset_bp.route(
+    "/assets/<int:asset_id>/history",
+    methods=["GET"]
+)
+@jwt_required()
+def get_asset_history(asset_id):
+
+    history = (
+        AssetService
+        .get_asset_history(asset_id)
+    )
+
+    return jsonify({
+        "success": True,
+        "data": [
+            {
+                "id": allocation.id,
+
+                "employee_name":
+                    allocation.employee.full_name
+                    if allocation.employee
+                    else None,
+
+                "status":
+                    allocation.status,
+
+                "allocation_date":
+                    str(
+                        allocation.allocation_date
+                    )
+                    if allocation.allocation_date
+                    else None,
+
+                "expected_return_date":
+                    str(
+                        allocation.expected_return_date
+                    )
+                    if allocation.expected_return_date
+                    else None,
+
+                "actual_return_date":
+                    str(
+                        allocation.actual_return_date
+                    )
+                    if allocation.actual_return_date
+                    else None
+            }
+            for allocation in history
+        ]
+    }), 200
 
 
 

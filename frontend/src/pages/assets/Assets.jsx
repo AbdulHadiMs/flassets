@@ -8,6 +8,7 @@ import Input from "../../components/common/Input";
 import Select from "../../components/common/Select";
 import PageHeader from "../../components/common/PageHeader";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function Assets() {
   const [assets, setAssets] = useState([]);
@@ -29,6 +30,7 @@ function Assets() {
   const [locations, setLocations] = useState([]);
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -369,6 +371,16 @@ function Assets() {
                 </td>
 
                 <td className="p-4">
+
+                  <button
+                    onClick={() =>
+                      navigate(`/assets/${asset.id}`)
+                    }
+                    className="text-gray-600 hover:underline mr-3"
+                  >
+                    View
+                  </button>
+
                   <button
                     onClick={() =>
                       handleEditClick(asset)
@@ -379,7 +391,9 @@ function Assets() {
                   </button>
 
                   <button
-                    onClick={() => handleDeleteAsset(asset.id)}
+                    onClick={() =>
+                      handleDeleteAsset(asset.id)
+                    }
                     className="text-red-600 hover:underline"
                   >
                     Delete
@@ -499,7 +513,7 @@ function Assets() {
             onChange={handleChange}
             className="mb-3"
           />
-          
+
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Price
           </label>

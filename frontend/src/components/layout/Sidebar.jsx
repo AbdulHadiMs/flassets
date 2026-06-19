@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import logo from "../../assets/logo.png";
 
 function Sidebar() {
   const location = useLocation();
@@ -40,10 +41,24 @@ function Sidebar() {
 
   return (
     <aside className="w-64 bg-white shadow-md">
-      <div className="p-5 border-b">
-        <h1 className="text-xl font-bold">
-          FL Assets
-        </h1>
+      <div className="p-5 border-b flex items-center gap-3">
+
+        <img
+          src={logo}
+          alt="FL Assets"
+          className="w-auto"
+        />
+
+        {/* <div>
+          <h1 className="text-lg font-bold">
+            Stock Nest
+          </h1>
+
+          <p className="text-xs text-gray-500">
+            Asset Management
+          </p>
+        </div> */}
+
       </div>
 
       <nav className="p-4">
@@ -52,8 +67,8 @@ function Sidebar() {
             key={item.path}
             to={item.path}
             className={`block p-3 rounded mb-2 ${location.pathname === item.path
-                ? "bg-blue-600 text-white"
-                : "hover:bg-gray-100"
+              ? "bg-blue-600 text-white"
+              : "hover:bg-gray-100"
               }`}
           >
             {item.name}

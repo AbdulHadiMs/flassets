@@ -12,6 +12,7 @@ import Locations from "./pages/locations/Locations";
 import Employees from "./pages/employees/Employees";
 import Allocations from "./pages/allocations/Allocations";
 import Reports from "./pages/reports/Reports";
+import AssetDetails from "./pages/assets/AssetDetails";
 
 function App() {
   return (
@@ -99,6 +100,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Reports />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/assets/:id"
+          element={
+            <ProtectedRoute>
+              <AssetDetails />
             </ProtectedRoute>
           }
         />
