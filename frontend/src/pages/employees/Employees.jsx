@@ -6,6 +6,7 @@ import api from "../../api/axios";
 import toast from "react-hot-toast";
 import Input from "../../components/common/Input";
 import PageHeader from "../../components/common/PageHeader";
+import { useNavigate } from "react-router-dom";
 
 function Employees() {
   const [employees, setEmployees] = useState([]);
@@ -13,6 +14,8 @@ function Employees() {
   const [showModal, setShowModal] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
+  const navigate = useNavigate();
+
 
   const [formData, setFormData] = useState({
     employee_code: "",
@@ -203,6 +206,14 @@ function Employees() {
                   <td className="p-4">{employee.designation || "-"}</td>
 
                   <td className="p-4">
+
+                    <button
+                      onClick={() => navigate(`/employees/${employee.id}`)}
+                      className="text-gray-600 hover:underline mr-3"
+                    >
+                      View
+                    </button>
+                    
                     <button
                       onClick={() => handleEditClick(employee)}
                       className="text-blue-600 hover:underline mr-3"
@@ -309,6 +320,7 @@ function Employees() {
             >
               {isEditMode ? "Update" : "Save"}
             </button>
+
           </div>
         </form>
       </Modal>

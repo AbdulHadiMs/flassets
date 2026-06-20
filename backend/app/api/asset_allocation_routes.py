@@ -102,12 +102,12 @@ def get_allocations():
             "asset_code": allocation.asset.asset_code if allocation.asset else None,
             "asset_name": allocation.asset.asset_name if allocation.asset else None,
 
-            "employee_id": allocation.employee_id,
-            "employee_name": allocation.employee.full_name if allocation.employee else None,
-
             "status": allocation.status,
+            # "serial_number": allocation.asset.serial_number,
 
-            "allocation_date": str(allocation.allocation_date),
+            "allocation_date": str(allocation.allocation_date)
+            if allocation.allocation_date
+            else None,
 
             "expected_return_date": str(allocation.expected_return_date)
             if allocation.expected_return_date
@@ -115,7 +115,7 @@ def get_allocations():
 
             "actual_return_date": str(allocation.actual_return_date)
             if allocation.actual_return_date
-            else None,
+            else None
         })
 
     return jsonify({

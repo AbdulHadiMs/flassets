@@ -18,7 +18,10 @@ def create_app():
         app,
         resources={
             r"/api/*": {
-                "origins": "http://localhost:5173"
+                "origins": [
+                    "http://localhost:5173",
+                    "http://192.168.0.37:5173"
+                ]
             }
         }
     )
