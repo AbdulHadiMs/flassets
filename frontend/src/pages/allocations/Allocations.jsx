@@ -7,6 +7,7 @@ import StatusBadge from "../../components/common/StatusBadge";
 import toast from "react-hot-toast";
 import Input from "../../components/common/Input";
 import PageHeader from "../../components/common/PageHeader";
+import Select from "react-select";
 
 function Allocations() {
     const [allocations, setAllocations] = useState([]);
@@ -14,6 +15,7 @@ function Allocations() {
     const [employees, setEmployees] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [search, setSearch] = useState("");
+
 
     const [formData, setFormData] = useState({
         asset_id: "",
@@ -79,8 +81,21 @@ function Allocations() {
     const handleAllocateAsset = async (e) => {
         e.preventDefault();
 
+        if (
+            !formData.asset_id ||
+            !formData.employee_id
+        ) {
+            toast.error(
+                "Please select asset and employee"
+            );
+            return;
+        }
+
         try {
-            await api.post("/allocations", formData);
+            await api.post(
+                "/allocations",
+                formData
+            );
 
             setShowModal(false);
             resetForm();
@@ -88,9 +103,14 @@ function Allocations() {
             fetchAllocations();
             fetchAssets();
 
-            toast.success("Asset allocated successfully");
+            toast.success(
+                "Asset allocated successfully"
+            );
         } catch (error) {
-            toast.error(error.response?.data?.message || "Failed allocate Asset");
+            toast.error(
+                error.response?.data?.message ||
+                "Failed allocate Asset"
+            );
         }
     };
 
@@ -117,6 +137,20 @@ function Allocations() {
 
     const availableAssets = assets.filter(
         (asset) => asset.status === "Available"
+    );
+
+    const assetOptions = availableAssets.map(
+        (asset) => ({
+            value: asset.id,
+            label: `${asset.asset_code} - ${asset.asset_name}`,
+        })
+    );
+
+    const employeeOptions = employees.map(
+        (employee) => ({
+            value: employee.id,
+            label: `${employee.employee_code} - ${employee.full_name}`,
+        })
     );
 
     return (
@@ -261,37 +295,53 @@ function Allocations() {
                 title="Allocate Asset"
             >
                 <form onSubmit={handleAllocateAsset}>
-                    <select
-                        name="asset_id"
-                        value={formData.asset_id}
-                        onChange={handleChange}
-                        className="border w-full p-2 mb-3"
-                        required
-                    >
-                        <option value="">Select Asset</option>
+                    <div className="mb-3">
+                        <Select
+                            options={assetOptions}
+                            value={
+                                assetOptions.find(
+                                    (option) =>
+                                        option.value ==
+                                        formData.asset_id
+                                ) || null
+                            }
+                            onChange={(selected) =>
+                                setFormData({
+                                    ...formData,
+                                    asset_id: selected
+                                        ? selected.value
+                                        : "",
+                                })
+                            }
+                            placeholder="Search Asset..."
+                            isSearchable
+                            isClearable
+                        />
+                    </div>
 
-                        {availableAssets.map((asset) => (
-                            <option key={asset.id} value={asset.id}>
-                                {asset.asset_code} - {asset.asset_name}
-                            </option>
-                        ))}
-                    </select>
-
-                    <select
-                        name="employee_id"
-                        value={formData.employee_id}
-                        onChange={handleChange}
-                        className="border w-full p-2 mb-3"
-                        required
-                    >
-                        <option value="">Select Employee</option>
-
-                        {employees.map((employee) => (
-                            <option key={employee.id} value={employee.id}>
-                                {employee.employee_code} - {employee.full_name}
-                            </option>
-                        ))}
-                    </select>
+                    <div className="mb-3">
+                        <Select
+                            options={employeeOptions}
+                            value={
+                                employeeOptions.find(
+                                    (option) =>
+                                        option.value ==
+                                        formData.employee_id
+                                ) || null
+                            }
+                            onChange={(selected) =>
+                                setFormData({
+                                    ...formData,
+                                    employee_id: selected
+                                        ? selected.value
+                                        : "",
+                                })
+                            }
+                            placeholder="Search Employee..."
+                            isSearchable
+                            isClearable
+                        />
+                    </div>
 
                     <input
                         type="date"
