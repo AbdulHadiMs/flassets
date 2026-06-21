@@ -14,6 +14,7 @@ import Allocations from "./pages/allocations/Allocations";
 import Reports from "./pages/reports/Reports";
 import AssetDetails from "./pages/assets/AssetDetails";
 import EmployeeDetails from "./pages/employees/EmployeeDetails";
+import Damages from "./pages/damages/Damages";
 
 function App() {
   return (
@@ -121,6 +122,10 @@ function App() {
               <EmployeeDetails />
             </ProtectedRoute>
           }
+        />
+        <Route
+          path="/damages"
+          element={<Damages />}
         />
 
 

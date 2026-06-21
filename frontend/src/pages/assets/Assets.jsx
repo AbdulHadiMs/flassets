@@ -21,6 +21,7 @@ function Assets() {
       category_id: "",
       serial_number: "",
       purchase_cost: "",
+      purchase_condition: "New",
       status: "Available",
     });
   const [isEditMode, setIsEditMode] = useState(false);
@@ -91,6 +92,13 @@ function Assets() {
         : null,
 
       serial_number: formData.serial_number || null,
+
+      purchase_date: formData.purchase_date || null,
+
+      warranty_expiry: formData.warranty_expiry || null,
+
+      purchase_condition: formData.purchase_condition,
+
     };
   };
 
@@ -190,6 +198,8 @@ function Assets() {
       location_id: asset.location_id || "",
       employee_id: asset.employee_id || "",
       serial_number: asset.serial_number || "",
+      purchase_date: asset.purchase_date || "",
+      warranty_expiry: asset.warranty_expiry || "",
       purchase_cost: asset.purchase_cost || "",
       status: asset.status,
 
@@ -274,6 +284,8 @@ function Assets() {
       location_id: "",
       employee_id: "",
       serial_number: "",
+      purchase_date: "",
+      warranty_expiry: "",
       purchase_cost: "",
       status: "Available",
     });
@@ -525,6 +537,44 @@ function Assets() {
             onChange={handleChange}
             className="mb-3"
           />
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Purchase Date
+          </label>
+          <Input
+            type="date"
+            name="purchase_date"
+            value={formData.purchase_date}
+            onChange={handleChange}
+            className="mb-3"
+          />
+
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Warranty Expiry
+          </label>
+          <Input
+            type="date"
+            name="warranty_expiry"
+            value={formData.warranty_expiry}
+            onChange={handleChange}
+            className="mb-3"
+          />
+
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Purchase Condition
+          </label>
+
+          <select
+            name="purchase_condition"
+            value={formData.purchase_condition}
+            onChange={handleChange}
+            className="border w-full p-2 mb-3 rounded"
+          >
+            <option value="New">New</option>
+            <option value="Used">Used</option>
+            <option value="Refurbished">
+              Refurbished
+            </option>
+          </select>
 
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Asset Status
@@ -538,6 +588,7 @@ function Assets() {
             <option value="Available">Available</option>
             <option value="Allocated">Allocated</option>
             <option value="Maintenance">Maintenance</option>
+            <option value="Damaged">Damaged</option>
           </Select>
 
           <div className="flex justify-end gap-3">

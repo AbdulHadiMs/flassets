@@ -36,6 +36,10 @@ function Sidebar() {
     {
       name: "Reports",
       path: "/reports"
+    },
+    {
+      name: "Damages",
+      path: "/damages",
     }
   ];
 

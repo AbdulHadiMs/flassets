@@ -40,6 +40,7 @@ def create_app():
     from app.api.asset_allocation_routes import allocation_bp
     from app.api.dashboard_routes import dashboard_bp
     from app.api.reports_routes import reports_bp
+    from app.api.asset_damage_routes import damage_bp
     
 
 
@@ -53,6 +54,7 @@ def create_app():
     app.register_blueprint(allocation_bp, url_prefix="/api")
     app.register_blueprint(dashboard_bp, url_prefix="/api")
     app.register_blueprint(reports_bp, url_prefix="/api")
+    app.register_blueprint(damage_bp, url_prefix="/api")
 
     from app.models.user_model import User
     from app.models.category_model import Category
@@ -61,5 +63,6 @@ def create_app():
     from app.models.employee_model import Employee
     from app.models.asset_model import Asset
     from app.models.asset_allocation_model import AssetAllocation
+    from app.models.asset_damage_model import AssetDamage
 
     return app

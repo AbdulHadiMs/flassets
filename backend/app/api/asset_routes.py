@@ -97,7 +97,10 @@ def get_assets():
                     "category": asset.category.name if asset.category else None,
                     "vendor": asset.vendor.name if asset.vendor else None,
                     "location": asset.location.name if asset.location else None,
-                    "employee": asset.employee.full_name if asset.employee else None
+                    "employee": asset.employee.full_name if asset.employee else None,
+                    "purchase_date": str(asset.purchase_date) if asset.purchase_date else None,
+                    "warranty_expiry": str(asset.warranty_expiry) if asset.warranty_expiry else None,
+                    "purchase_condition": asset.purchase_condition,
                 }
                 for asset in assets
             ]
@@ -133,7 +136,10 @@ def get_asset(asset_id):
                 "category": asset.category.name if asset.category else None,
                 "vendor": asset.vendor.name if asset.vendor else None,
                 "location": asset.location.name if asset.location else None,
-                "employee": asset.employee.full_name if asset.employee else None 
+                "employee": asset.employee.full_name if asset.employee else None,
+                "purchase_date": str(asset.purchase_date) if asset.purchase_date else None,
+                "warranty_expiry": str(asset.warranty_expiry) if asset.warranty_expiry else None,
+                "purchase_condition": asset.purchase_condition,
             }
         }), 200
 

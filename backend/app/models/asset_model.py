@@ -91,12 +91,18 @@ class Asset(BaseModel):
         "Employee",
         backref="assets"
     )
+
+    purchase_condition = db.Column(
+        db.String(50),
+        nullable=True
+    )
     
     allocations = db.relationship(
         "AssetAllocation",
         backref="asset",
         lazy=True
     )
+
     
     is_active = db.Column(
         db.Boolean,
