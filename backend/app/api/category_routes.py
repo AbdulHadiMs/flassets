@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required
 from app.utils.auth_decorators import admin_required
-
+from app.models.asset_model import Asset
 from app.services.category_service import CategoryService
 
 
@@ -180,5 +180,32 @@ def deactivate_category(category_id):
             "message": str(e)
         }), 500
     
+@category_bp.route(
+    "/categories/<int:category_id>/assets",
+    methods=["GET"]
+)
+@jwt_required()
+def get_category_assets(category_id):
 
+    assets = Asset.query.filter_by(
+        category_id=category_id,
+        is_active=True
+    ).all()
+
+    return jsonify({
+        "success": True,
+        "data": [
+            {
+                "id": asset.id,
+                "asset_code": asset.asset_code,
+                "asset_name": asset.asset_name,
+                "employee_name":
+                    asset.employee.full_name
+                    if asset.employee
+                    else "-",
+                "status": asset.status
+            }
+            for asset in assets
+        ]
+    }), 200
 

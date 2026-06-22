@@ -15,6 +15,7 @@ import Reports from "./pages/reports/Reports";
 import AssetDetails from "./pages/assets/AssetDetails";
 import EmployeeDetails from "./pages/employees/EmployeeDetails";
 import Damages from "./pages/damages/Damages";
+import CategoryAssets from "./pages/categories/CategoryAssets";
 
 function App() {
   return (
@@ -126,6 +127,10 @@ function App() {
         <Route
           path="/damages"
           element={<Damages />}
+        />
+        <Route
+          path="/categories/:id/assets"
+          element={<CategoryAssets />}
         />
 
 

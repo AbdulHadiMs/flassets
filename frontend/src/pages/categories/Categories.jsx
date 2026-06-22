@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import Input from "../../components/common/Input";
 import PageHeader from "../../components/common/PageHeader";
 import Button from "../../components/common/Button";
+import { useNavigate } from "react-router-dom";
 
 
 function Categories() {
@@ -23,6 +24,8 @@ function Categories() {
         useState({
             name: "",
         });
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchCategories();
@@ -212,14 +215,29 @@ function Categories() {
                                     <td className="p-4">
 
                                         <button
-                                            onClick={() => handleEditClick(category)}
+                                            onClick={() =>
+                                                navigate(
+                                                    `/categories/${category.id}/assets`
+                                                )
+                                            }
+                                            className="text-green-600 hover:underline mr-3"
+                                        >
+                                            View
+                                        </button>
+
+                                        <button
+                                            onClick={() =>
+                                                handleEdit(category)
+                                            }
                                             className="text-blue-600 hover:underline mr-3"
                                         >
                                             Edit
                                         </button>
 
                                         <button
-                                            onClick={() => handleDeleteCategory(category.id)}
+                                            onClick={() =>
+                                                handleDelete(category.id)
+                                            }
                                             className="text-red-600 hover:underline"
                                         >
                                             Delete
