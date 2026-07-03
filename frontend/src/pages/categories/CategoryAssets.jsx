@@ -51,6 +51,9 @@ function CategoryAssets() {
                             <th className="text-left p-4">
                                 Employee
                             </th>
+                            <th className="text-left p-4">
+                                Serial Number
+                            </th>
 
                             <th className="text-left p-4">
                                 Status
@@ -86,6 +89,9 @@ function CategoryAssets() {
 
                                         <td className="p-4">
                                             {asset.employee_name}
+                                        </td>
+                                        <td className="p-4">
+                                            {asset.serial_number}
                                         </td>
 
                                         <td className="p-4">

@@ -31,7 +31,8 @@ def create_category():
 
         category = CategoryService.create_category(
             name=name,
-            description=description
+            description=description,
+            code_prefix=data.get("code_prefix")
         )
 
         return jsonify({
@@ -40,7 +41,8 @@ def create_category():
             "data": {
                 "id": category.id,
                 "name": category.name,
-                "description": category.description
+                "description": category.description,
+                "code_prefix": category.code_prefix
             }
         }), 201
 
@@ -71,7 +73,8 @@ def get_categories():
                 {
                     "id": category.id,
                     "name": category.name,
-                    "description": category.description
+                    "description": category.description,
+                    "code_prefix": category.code_prefix
                 }
                 for category in categories
             ]
@@ -126,7 +129,8 @@ def update_category(category_id):
         category = CategoryService.update_category(
             category_id=category_id,
             name=data.get("name"),
-            description=data.get("description")
+            description=data.get("description"),
+            code_prefix=data.get("code_prefix")
         )
 
         return jsonify({
@@ -135,7 +139,8 @@ def update_category(category_id):
             "data": {
                 "id": category.id,
                 "name": category.name,
-                "description": category.description
+                "description": category.description,
+                "code_prefix": category.code_prefix
             }
         }), 200
 
@@ -202,6 +207,10 @@ def get_category_assets(category_id):
                 "employee_name":
                     asset.employee.full_name
                     if asset.employee
+                    else "-",
+                "serial_number":
+                    asset.serial_number
+                    if asset.serial_number
                     else "-",
                 "status": asset.status
             }

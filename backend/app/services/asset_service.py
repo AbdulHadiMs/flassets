@@ -179,11 +179,15 @@ class AssetService:
         asset.purchase_cost = purchase_cost
         asset.invoice_number = invoice_number
         asset.warranty_expiry = warranty_expiry
-        asset.status = status
+        if employee_id:
+            asset.status = "Allocated"
+        else:
+            asset.status = status
 
         db.session.commit()
 
         return asset
+
     
     @staticmethod
     def delete_asset(asset_id):

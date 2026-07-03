@@ -23,6 +23,7 @@ function Categories() {
     const [formData, setFormData] =
         useState({
             name: "",
+            code_prefix: "",
         });
 
     const navigate = useNavigate();
@@ -48,10 +49,14 @@ function Categories() {
     };
 
     const handleChange = (e) => {
+        const { name, value } = e.target;
+
         setFormData({
             ...formData,
-            [e.target.name]:
-                e.target.value,
+            [name]:
+                name === "code_prefix"
+                    ? value.toUpperCase()
+                    : value,
         });
     };
 
@@ -69,6 +74,7 @@ function Categories() {
 
                 setFormData({
                     name: "",
+                    code_prefix: "",
                 });
 
                 fetchCategories();
@@ -96,6 +102,7 @@ function Categories() {
         setSelectedCategoryId(category.id);
         setFormData({
             name: category.name,
+            code_prefix: category.code_prefix || "",
         });
         setShowModal(true);
     };
@@ -109,7 +116,10 @@ function Categories() {
             setShowModal(false);
             setIsEditMode(false);
             setSelectedCategoryId(null);
-            setFormData({ name: "" });
+            setFormData({
+                name: "",
+                code_prefix: "",
+            });
 
             fetchCategories();
 
@@ -159,6 +169,7 @@ function Categories() {
                             setSelectedCategoryId(null);
                             setFormData({
                                 name: "",
+                                code_prefix: "",
                             });
                             setShowModal(true);
                         }}
@@ -178,6 +189,9 @@ function Categories() {
                     <thead className="bg-gray-100">
 
                         <tr>
+                            <th className="text-left p-4">
+                                Prefix
+                            </th>
 
                             <th className="text-left p-4">
                                 Category Name
@@ -196,7 +210,7 @@ function Categories() {
                         {filteredCategories.length === 0 ? (
                             <tr>
                                 <td
-                                    colSpan="2"
+                                    colSpan="3"
                                     className="text-center p-6 text-gray-500"
                                 >
                                     No categories found
@@ -208,6 +222,9 @@ function Categories() {
                                     key={category.id}
                                     className="border-t"
                                 >
+                                    <td className="p-4">
+                                        {category.code_prefix || "-"}
+                                    </td>
                                     <td className="p-4">
                                         {category.name}
                                     </td>
@@ -227,7 +244,7 @@ function Categories() {
 
                                         <button
                                             onClick={() =>
-                                                handleEdit(category)
+                                                handleEditClick(category)
                                             }
                                             className="text-blue-600 hover:underline mr-3"
                                         >
@@ -236,7 +253,7 @@ function Categories() {
 
                                         <button
                                             onClick={() =>
-                                                handleDelete(category.id)
+                                                handleDeleteCategory(category.id)
                                             }
                                             className="text-red-600 hover:underline"
                                         >
@@ -275,6 +292,16 @@ function Categories() {
                         name="name"
                         placeholder="Category Name"
                         value={formData.name}
+                        onChange={handleChange}
+                        className="mb-4"
+                        required
+                    />
+
+                    <Input
+                        type="text"
+                        name="code_prefix"
+                        placeholder="Code Prefix e.g. LAP"
+                        value={formData.code_prefix}
                         onChange={handleChange}
                         className="mb-4"
                         required
