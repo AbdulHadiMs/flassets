@@ -112,6 +112,32 @@ def get_assets():
             "message": str(e)
         }), 500
 
+
+@asset_bp.route(
+    "/assets/generate-code/<int:category_id>",
+    methods=["GET"]
+)
+@jwt_required()
+def generate_asset_code(category_id):
+
+    try:
+        asset_code = AssetService.generate_asset_code(
+            category_id
+        )
+
+        return jsonify({
+            "success": True,
+            "asset_code": asset_code
+        }), 200
+
+    except ValueError as e:
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 400
+
+
+
 @asset_bp.route("/assets/<int:asset_id>", methods=["GET"])
 @jwt_required()
 def get_asset(asset_id):

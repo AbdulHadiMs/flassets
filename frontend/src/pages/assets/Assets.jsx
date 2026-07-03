@@ -435,7 +435,7 @@ function Assets() {
             value={formData.asset_code}
             onChange={handleChange}
             className="mb-3"
-            required
+            
           />
 
           <Input

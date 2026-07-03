@@ -1,5 +1,5 @@
 from app import db
-
+import re
 from app.models.asset_model import Asset
 from app.models.category_model import Category
 from app.models.vendor_model import Vendor
@@ -222,3 +222,46 @@ class AssetService:
         return AssetAllocation.query.filter_by(
             asset_id=asset_id
         ).all()
+    
+    @staticmethod
+    def generate_asset_code(category_id):
+
+        category = Category.query.get(category_id)
+
+        if not category:
+            raise ValueError("Category not found")
+
+        prefix = category.code_prefix
+
+        if not prefix:
+            raise ValueError(
+                "Category prefix is not configured"
+            )
+
+        assets = Asset.query.filter_by(
+            category_id=category_id
+        ).all()
+
+        max_number = 0
+
+        for asset in assets:
+
+            if not asset.asset_code:
+                continue
+
+            match = re.search(
+                r"(\d+)$",
+                asset.asset_code
+            )
+
+            if match:
+                number = int(match.group(1))
+
+                if number > max_number:
+                    max_number = number
+
+        next_number = max_number + 1
+
+        return f"{prefix}_{next_number:03d}"
+    
+    
