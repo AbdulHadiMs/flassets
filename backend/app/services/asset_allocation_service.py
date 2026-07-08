@@ -1,5 +1,3 @@
-from datetime import date
-
 from app import db
 
 from app.models.asset_model import Asset
@@ -45,6 +43,8 @@ class AssetAllocationService:
                     expected_return_date,
                     "%Y-%m-%d"
                 ).date()
+            else:
+                expected_return_date = None
 
         except ValueError:
             raise ValueError(

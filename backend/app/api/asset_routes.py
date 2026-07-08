@@ -44,6 +44,7 @@ def create_asset():
             warranty_expiry=parse_date(
                 data.get("warranty_expiry")
             ),
+            purchase_condition=data.get("purchase_condition"),
             status=data.get(
                 "status",
                 "Available"
@@ -199,6 +200,7 @@ def update_asset(asset_id):
             warranty_expiry=parse_date(
                 data.get("warranty_expiry")
             ),
+            purchase_condition=data.get("purchase_condition"),
             status=data.get(
                 "status",
                 "Available"
@@ -270,7 +272,18 @@ def get_asset_details(asset_id):
 
                 "purchase_cost": asset.purchase_cost,
                 "invoice_number": asset.invoice_number,
+                "purchase_date":
+                    str(asset.purchase_date)
+                    if asset.purchase_date
+                    else None,
 
+                "warranty_expiry":
+                    str(asset.warranty_expiry)
+                    if asset.warranty_expiry
+                    else None,
+
+                "purchase_condition":
+                    asset.purchase_condition,
                 "category": asset.category.name if asset.category else None,
                 "vendor": asset.vendor.name if asset.vendor else None,
                 "location": asset.location.name if asset.location else None,

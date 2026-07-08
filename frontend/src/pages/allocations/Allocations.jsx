@@ -191,6 +191,9 @@ function Allocations() {
                             <th className="text-left p-4">
                                 Asset Name
                             </th>
+                            <th className="text-left p-4">
+                                Serial Number
+                            </th>
 
                             <th className="text-left p-4">
                                 Employee
@@ -204,9 +207,6 @@ function Allocations() {
                                 Allocation Date
                             </th>
 
-                            <th className="text-left p-4">
-                                Expected Return
-                            </th>
 
                             <th className="text-left p-4">
                                 Actual Return
@@ -241,6 +241,10 @@ function Allocations() {
                                     <td className="p-4">
                                         {allocation.asset_name}
                                     </td>
+                                    
+                                    <td className="p-4">
+                                        {allocation.serial_number || "-"}
+                                    </td>
 
                                     <td className="p-4">
                                         {allocation.employee_name}
@@ -254,10 +258,6 @@ function Allocations() {
 
                                     <td className="p-4">
                                         {allocation.allocation_date}
-                                    </td>
-
-                                    <td className="p-4">
-                                        {allocation.expected_return_date || "-"}
                                     </td>
 
                                     <td className="p-4">

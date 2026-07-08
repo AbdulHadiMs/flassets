@@ -69,6 +69,43 @@ function Assets() {
     });
   };
 
+  const handleCategoryChange = async (e) => {
+    const categoryId = e.target.value;
+
+    setFormData((prev) => ({
+      ...prev,
+      category_id: categoryId,
+    }));
+
+    if (!categoryId) {
+      setFormData((prev) => ({
+        ...prev,
+        category_id: "",
+        asset_code: "",
+      }));
+      return;
+    }
+
+    try {
+      const response = await api.get(
+        `/assets/generate-code/${categoryId}`
+      );
+
+      setFormData((prev) => ({
+        ...prev,
+        category_id: categoryId,
+        asset_code: response.data.asset_code,
+      }));
+    } catch (error) {
+      console.error(error);
+
+      toast.error(
+        error.response?.data?.message ||
+        "Failed to generate asset code"
+      );
+    }
+  };
+
 
   const buildAssetPayload = () => {
     return {
@@ -335,6 +372,9 @@ function Assets() {
               <th className="text-left p-4">
                 Asset Name
               </th>
+              <th className="text-left p-4">
+                Serial Number
+              </th>
 
               <th className="text-left p-4">
                 Category
@@ -368,6 +408,9 @@ function Assets() {
 
                 <td className="p-4">
                   {asset.asset_name}
+                </td>
+                <td className="p-4">
+                  {asset.serial_number || "-"}
                 </td>
 
                 <td className="p-4">
@@ -433,9 +476,8 @@ function Assets() {
             name="asset_code"
             placeholder="Asset Code"
             value={formData.asset_code}
-            onChange={handleChange}
-            className="mb-3"
-            
+            readOnly
+            className="mb-3 bg-gray-100"
           />
 
           <Input
@@ -454,7 +496,11 @@ function Assets() {
           <Select
             name="category_id"
             value={formData.category_id}
-            onChange={handleChange}
+            onChange={
+              isEditMode
+                ? handleChange
+                : handleCategoryChange
+            }
             className="mb-3"
             required
           >
@@ -500,7 +546,7 @@ function Assets() {
             ))}
           </Select>
 
-          <Select
+          {/* <Select
             name="employee_id"
             value={formData.employee_id}
             onChange={handleChange}
@@ -512,7 +558,7 @@ function Assets() {
                 {employee.employee_code} - {employee.full_name}
               </option>
             ))}
-          </Select>
+          </Select> */}
 
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Serial Number
@@ -586,7 +632,7 @@ function Assets() {
             className="mb-4"
           >
             <option value="Available">Available</option>
-            <option value="Allocated">Allocated</option>
+            {/* <option value="Allocated">Allocated</option> */}
             <option value="Maintenance">Maintenance</option>
             <option value="Damaged">Damaged</option>
           </Select>

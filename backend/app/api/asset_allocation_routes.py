@@ -101,16 +101,14 @@ def get_allocations():
             "asset_id": allocation.asset_id,
             "asset_code": allocation.asset.asset_code if allocation.asset else None,
             "asset_name": allocation.asset.asset_name if allocation.asset else None,
+            "serial_number": allocation.asset.serial_number if allocation.asset else "-",
+            "employee_name": allocation.employee.full_name if allocation.employee else "-",
 
             "status": allocation.status,
             # "serial_number": allocation.asset.serial_number,
 
             "allocation_date": str(allocation.allocation_date)
             if allocation.allocation_date
-            else None,
-
-            "expected_return_date": str(allocation.expected_return_date)
-            if allocation.expected_return_date
             else None,
 
             "actual_return_date": str(allocation.actual_return_date)
@@ -147,7 +145,28 @@ def employee_allocations(
         data.append({
             "id": allocation.id,
             "asset_id": allocation.asset_id,
-            "status": allocation.status
+            "asset_code":
+                    allocation.asset.asset_code
+                    if allocation.asset
+                    else "-",
+            "asset_name":
+                    allocation.asset.asset_name
+                    if allocation.asset
+                    else "-",
+            "serial_number":
+                    allocation.asset.serial_number
+                    if allocation.asset
+                    else None,
+            "status": allocation.status,
+             "allocation_date":
+                    str(allocation.allocation_date)
+                    if allocation.allocation_date
+                    else None,
+
+                "actual_return_date":
+                    str(allocation.actual_return_date)
+                    if allocation.actual_return_date
+                    else None
         })
 
     return jsonify({

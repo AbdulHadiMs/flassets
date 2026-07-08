@@ -22,6 +22,7 @@ class AssetService:
         purchase_cost=None,
         invoice_number=None,
         warranty_expiry=None,
+        purchase_condition=None,
         status="Available"
     ):
 
@@ -97,6 +98,7 @@ class AssetService:
             purchase_cost=purchase_cost,
             invoice_number=invoice_number,
             warranty_expiry=warranty_expiry,
+            purchase_condition = purchase_condition,
             status=status
         )
 
@@ -138,6 +140,7 @@ class AssetService:
         purchase_cost=None,
         invoice_number=None,
         warranty_expiry=None,
+        purchase_condition=None,
         status="Available"
     ):
         asset = Asset.query.get(asset_id)
@@ -179,6 +182,7 @@ class AssetService:
         asset.purchase_cost = purchase_cost
         asset.invoice_number = invoice_number
         asset.warranty_expiry = warranty_expiry
+        asset.purchase_condition = purchase_condition
         if employee_id:
             asset.status = "Allocated"
         else:
